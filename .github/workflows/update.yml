@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Установка зависимостей
-        run: pip install requests
+        run: pip install requests yadisk
       - name: Запуск скрипта
         run: python update.py
       - name: Сохранение изменений
