@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import yadisk
 import requests
 import base64
 import re
@@ -102,5 +103,18 @@ def main():
     generate_karing_subscription(working_keys)
     print("\n=== Готово! Файл обновлён. ===")
 
+def upload_to_yandex(filename, token):
+    try:
+        y = yadisk.YaDisk(token=token)
+        with y:
+            y.upload(filename, f"/{filename}", overwrite=True)
+        print(f"Файл загружен на Яндекс.Диск: {filename}")
+        return True
+    except Exception as e:
+        print(f"Ошибка загрузки на Яндекс.Диск: {e}")
+        return False
+
 if __name__ == "__main__":
-    main()
+    main(yandex_token = os.environ.get("YANDEX_TOKEN")
+if yandex_token:
+    upload_to_yandex("karing_subscription.txt", yandex_token))
