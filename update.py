@@ -9,7 +9,7 @@ import os
 # ========== НАСТРОЙКИ ==========
 # СЮДА ВСТАВЬ СВОИ ССЫЛКИ НА ИСТОЧНИКИ С КЛЮЧАМИ
 SOURCES = [
-    "https://github.com/igareck/vpn-configs-for-russia",   # Замени на реальную ссылку
+    "https://github.com/igareck/vpn-configs-for-russia/blob/main/WHITE-CIDR-RU-checked.txt",   # Замени на реальную ссылку
 ]
 
 # Технические настройки (можно не менять)
