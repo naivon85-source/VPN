@@ -1,0 +1,30 @@
+name: Автообновление для Karing
+
+on:
+  schedule:
+    - cron: '0 */5 * * *'   # каждые 5 часов
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Установка зависимостей
+        run: pip install requests
+      - name: Запуск скрипта
+        run: python update.py
+      - name: Сохранение изменений
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add karing_subscription.txt
+          git diff --quiet && git diff --staged --quiet || git commit -m "Автообновление $(date)"
+          git push
