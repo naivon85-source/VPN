@@ -21,6 +21,8 @@ jobs:
         run: pip install requests yadisk
       - name: Запуск скрипта
         run: python update.py
+        env:
+          YANDEX_TOKEN: ${{ secrets.YANDEX_TOKEN }}
       - name: Сохранение изменений
         run: |
           git config user.name "GitHub Action"
