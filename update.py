@@ -89,6 +89,17 @@ def generate_karing_subscription(keys, filename="karing_subscription.txt"):
             f.write(key + "\n")
     print(f"Файл {filename} создан. Karing будет обновляться каждые 5 часов.")
 
+def upload_to_yandex(filename, token):
+    try:
+        y = yadisk.YaDisk(token=token)
+        with y:
+            y.upload(filename, f"/{filename}", overwrite=True)
+        print(f"Файл загружен на Яндекс.Диск: {filename}")
+        return True
+    except Exception as e:
+        print(f"Ошибка загрузки на Яндекс.Диск: {e}")
+        return False
+
 def main():
     print("=== Автообновление ключей для Karing ===\n")
     all_keys = gather_keys()
@@ -103,18 +114,9 @@ def main():
     generate_karing_subscription(working_keys)
     print("\n=== Готово! Файл обновлён. ===")
 
-def upload_to_yandex(filename, token):
-    try:
-        y = yadisk.YaDisk(token=token)
-        with y:
-            y.upload(filename, f"/{filename}", overwrite=True)
-        print(f"Файл загружен на Яндекс.Диск: {filename}")
-        return True
-    except Exception as e:
-        print(f"Ошибка загрузки на Яндекс.Диск: {e}")
-        return False
+yandex_token = os.environ.get("YANDEX_TOKEN")
+if yandex_token:
+    upload_to_yandex("karing_subscription.txt", yandex_token)
 
 if __name__ == "__main__":
-    main(yandex_token = os.environ.get("YANDEX_TOKEN")
-if yandex_token:
-    upload_to_yandex("karing_subscription.txt", yandex_token))
+    main()
